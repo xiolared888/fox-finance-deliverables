@@ -1,6 +1,78 @@
-Email Address,Full Name,Phone,Address,Employment Status,Annual Income,Credit Score,Existing Loans
-jane.doe@example.com,Jane Doe,(555) 123-4567,123 Oak Street Springfield IL 62701,Employed,120000,720,1
-john.smith@example.com,John Smith,(555) 987-6543,456 Maple Avenue Chicago IL 60601,Self-Employed,95000,680,2
-sarah.wilson@example.com,Sarah Wilson,(555) 456-7890,789 Pine Road Naperville IL 60540,Employed,85000,750,0
-michael.johnson@example.com,Michael Johnson,(555) 234-5678,321 Elm Street Evanston IL 60201,Employed,110000,790,1
-emily.brown@example.com,Emily Brown,(555) 345-6789,654 Cedar Lane Aurora IL 60505,Self-Employed,105000,710,3
+﻿Client ID,First Name,Last Name,Full Name,Email Address,Phone Number,Date of Birth,Address,Loan Applications,Created At
+recrsqFXqV9hqy6j1,"Jess
+","Lee
+","Jess
+ Lee
+",jessica.lee@email3a44.com,+1-555-234-5678,8/14/1990,"123 Maple Ave, Springfield, IL 62704",,2/3/2026 5:43am
+rec9I9S18o6mH6Sdj,John,Smith,John Smith,john.smith@example.com,555-555-5565,8/12/1999,"123 Main ST, Anchorage AK 99666",,2/23/2026 11:23am
+recKblNxwYfwHDa84,Annette,Partida,Annette Partida,xiolared@gmail.com,8058063905,,,,3/3/2026 5:22pm
+recYuAp1JZY0flQ4z,David,Smith,David Smith,davidsmith@gmail.com,8057442132,,,,3/6/2026 11:29am
+recyE9kgGoXHSypRP,Eric,Meyers,Eric Meyers,ericmeyers@gmail.com,415-548-9876,,,,3/7/2026 6:18pm
+reccw5H7vgicw0VOf,Sarah,Bukowski,Sarah Bukowski,sbukowski@gmail.com,7078999513,,,,3/10/2026 4:13pm
+recfiafue38amww2f,Melinda,Rasolt,Melinda Rasolt,alexander.goldin@tripleten-team.com,7574948787,,,"recf44vPAY8UiSBrF,reckzWZS4OjnbxKgb",3/11/2026 4:48pm
+recGQlYplnnuz69YM,Henry,Marin,Henry Marin,annettepartida+henrymarin@gmail.com,888-965-1144,5/11/2001,,,3/25/2026 4:39pm
+recQLCNYcTNqaLPwq,Greg,Huynh,Greg Huynh,greg.huynh97@gmail.com,7142447446,4/18/1997,,,3/26/2026 6:51pm
+rec1oou2pXTvI070E,Alexander,Goldin,Alexander Goldin,alexander.goldin+agoldin@tripleten-team.com,'+1 (555) 123-4567,11/12/1999,,,3/30/2026 8:52am
+recCTqUqFg7sNEe6r,William,Fritz,William Fritz,williamfritz+annettepartida@gmail.com,8058063905,12/22/2001,P.O. box 171Grover BeachCalifornia,,3/30/2026 4:49pm
+recfrNL9Y4ziZHHeZ,Brian,Callenhan,Brian Callenhan,brian.e.callenhan+annettepartida@gmail.com,355-599-2415,10/3/1995,,,3/30/2026 4:53pm
+recHi6bw73Auaorao,Diane,Keaton,Diane Keaton,dianekeaton+annettepartida@gmail.com,4889856545,3/25/1990,"5588 Salinas Blvd. Seattle, WA",,3/30/2026 4:56pm
+recOzWYEYWRc50OU2,Lucas,Johnson,Lucas Johnson,sasha.a.goldin+lucas@gmail.com,5556764488,12/12/1987,"1167 A st Anchorage, AK",,3/31/2026 10:15am
+rec941YuUbhWeq3eZ,Ross,Geller,Ross Geller,alexander.goldin+rgeller@tripleten-team.com,'+1 (555) 123-4567,1/5/1998,"101 A st Austin, TX",,4/1/2026 4:20pm
+recDJ6H2T2s7JzD1J,Monika,Geller,Monika Geller,alexander.goldin+mgeller@tripleten-team.com,'+1 (555) 123-4567,12/12/1999,"101 A st Austin, TX",,4/1/2026 4:49pm
+recC0pA02cid2Qorf,Jess,Sanders,Jess Sanders,alexander.goldin+jsanders@tripleten-team.com,2223434444,1/2/1999,"101 A st Austin, TX",,4/2/2026 12:43pm
+rec6xOh4CfiW5HiS1,James,Brown,James Brown,jamesbrown@gmail.com,717-956-3421,9/15/1998,"788 Yellow Road Miami, FL",,4/2/2026 6:09pm
+recp11Dqojfm6ye5m,James,Nguyen,James Nguyen,jamesnguyen+greg.huynh97@gmail.com,5104385784,5/29/1996,"630 Saturn Ave Fremont, CA",,4/2/2026 6:52pm
+recx8x1Ekq33rZhE9,Merlin,Monroe,Merlin Monroe,alexander.goldin+merlinmonroe@tripleten-team.com,7574948787,5/5/1995,"202 A St Anchorage, AK",,4/3/2026 5:23am
+recg8n3mZSyiQvcCH,Jack,Sparrow,Jack Sparrow,alexander.goldin+js@tripleten-team.com,3039877788,4/5/1999,"303 B St Austin, TX",,4/3/2026 5:31am
+recQD3WhS90pZE9n9,Troy,Parker,Troy Parker,alexander.goldin+tp@tripleten-team.com,5554443434,11/11/1988,"304 Ricther Lane Austin, TX",,4/3/2026 3:52pm
+rec7Fg6nx3bAddQrK,Sandra,Robbins,Sandra Robbins,alexander.goldin+sandrarobbins@tripleten-team.com,'+1 (555) 123-4567,12/12/1988,"212 B St Austin, TX",,4/3/2026 4:09pm
+recSE1ouBhf3WU6LO,Julia,Roberts,Julia Roberts,alexander.goldin+jr@tripleten-team.com,'+1 (555) 123-4567,11/11/1965,"212 C St Austin, AK",,4/6/2026 7:33am
+recOpI52B9EuT26df,Debbie,Gibson,Debbie Gibson,debgib+annettepartida@gmail.com,898-654-7643,9/28/1974,"764 Pine Ave. #111 Las Vegas, NV",,4/6/2026 9:42am
+recoN2wEj15ZQt1y2,john,jones,john jones,alexander.goldin+jj@tripleten-team.com,2223434444,1/1/2001,"101 A st Austin, TX",,4/6/2026 9:58am
+recPWRUmyHaLTqd5y,Greg,Lucas,Greg Lucas,alexander.goldin+GL@tripleten-team.com,'+1 (555) 123-4567,11/11/1998,"212 B St Austin, TX",,4/6/2026 10:41am
+recvn7EOY0giYZpfY,Barbra,Bush,Barbra Bush,BB+annettepartida@gmail.com,202-546-1664,1/5/1945,"100 Penn Street. Washington, DC",,4/6/2026 10:41am
+recfm6zA4hyK29IAV,Hannah,Montana,Hannah Montana,HM+annettepartida@gmail.com,714-567-5511,6/4/1998,"214 Blueberry Lane Newport Beach, California",,4/6/2026 3:13pm
+rectii2S2u0idDpM7,Lucy,Lowes,Lucy Lowes,alexander.goldin+ll@tripleten-team.com,'+1 (555) 123-4567,11/12/1999,"101 A st Austin, TX",,4/6/2026 3:47pm
+recXyuNG2UB48DDON,Peter,Parker,Peter Parker,alexander.goldin+peterparker@tripleten-team.com,'+1 (555) 123-4567,6/8/1987,"505 AMD St Anchorage, Alaska",,4/7/2026 3:20pm
+recyC5TuX3gowRMqt,Jackie,Chang,Jackie Chang,alexander.goldin+jc@tripleten-team.com,'+1 (555) 123-4567,11/11/1999,"505 CCC St Anchorage, Alaska 99508",,4/7/2026 3:27pm
+recbMZxJzRR42EP8u,michelle,pozner,michelle pozner,alexander.goldin+mp@tripleten-team.com,2223332323,8/9/1999,"323 Main Rd Austin, Arkansas 45444",,4/7/2026 3:38pm
+reckb6tTkwhKAef25,Peter,Parker,Peter Parker,alexander.goldin+peterparker@tripleten-team.com,'+1 (555) 123-4567,6/8/1987,"505 AMD St Anchorage, Alaska 99666",,4/7/2026 3:40pm
+recIcsNkQ7EeTmYZy,Russo,Paublo,Russo Paublo,alexander.goldin+rp@tripleten-team.com,2223434444,12/12/1987,"212 C St Austin, Arizona 78765",,4/7/2026 3:45pm
+recdCopLUaKOGSNCX,monika,Smith,monika Smith,alexander.goldin+msmith@tripleten-team.com,3332233322,12/12/1986,"505 CCC St Anchorqagr, Arkansas 44342",,4/7/2026 3:49pm
+recGvOM0CYf4ahjhF,Fredrick,Connor,Fredrick Connor,FC+annettepartida@gmail.com,655-245-1769,5/13/1995,"7822 Redwood Drive Chicago, Illinois 60601",,4/8/2026 9:07am
+recO03X6kaqoLLxHu,Melanie,Jones,Melanie Jones,MJ+annettepartida@gmail.com,562-634-8888,12/24/1980,"1919 Dollar Street New Orleans, Louisiana 70112",recOPcupP7mlJQm3s,4/8/2026 9:14am
+recBaxzGzN5Vk23Ik,Maria,Lira,Maria Lira,LM+annettepartida@gmail.com,2098751215,7/22/1990,"4241 Hyde Street #212 Tucson, Arizona 85701",receBdhpkG237S2EV,4/8/2026 10:28am
+recRUXS4f8k8Yv4Qo,Josephina,Napoleon,Josephina Napoleon,alexander.goldin+jpol@tripleten-team.com,'+1 (555) 123-4567,12/12/1967,"3313 George Lucas Ave Anchorage, North Dakota 41341","recHifuSX2dACD5Ta,recd8C90EyLny5shs",4/8/2026 11:17am
+recJPxjKudwFfD3Jp,James,Lee,James Lee,jameslee+greg.huynh97@gmail.com,5415285465,3/8/1996,"123 Main Dr Fremont, California 94539",rec0osLeSZRvHT73d,4/8/2026 4:12pm
+recg138Rb6onJ6TEH,James,Lee,James Lee,greg.huynh97+jameslee@gmail.com,5715479854,5/22/1992,"321 1st Street Santa Ana, California 93287",rechiRX6m6vaZwof9,4/8/2026 4:17pm
+recdQ6DfBg5HRBKNs,Lucy,Lola,Lucy Lola,greg.huynh97+lucylola@gmail.com,57415487764,11/25/1984,"574 Garden Grove, California 95788",recceAQP2XOCDhDE3,4/8/2026 4:27pm
+recJdysOrEUPX4RMf,Rachel,Sanders,Rachel Sanders,greg.huynh97+rachelsanders@gmail.com,5741547587,12/21/1999,"852 San Francisco, California 94108",rectlVQ2w395QsOYo,4/8/2026 4:36pm
+recRoOxhXnBHaTWKz,Richard,Geer,Richard Geer,alexander.goldin+rich@tripleten-team.com,'+1 (555) 123-4567,11/11/1976,"505 Arnold St Austin, Texas 78765",recVoiAvOVypQCmIR,4/8/2026 6:06pm
+recGawmlSf6OTwQiB,Jessica,Alba,Jessica Alba,alexander.goldin+jalba@tripleten-team.com,'+1 (555) 123-4567,12/9/1999,"212 C St Anchorage, Alaska 99666",recoWibCiRZzl2xua,4/8/2026 6:12pm
+recdiob6uJbbcuVwR,Norah,Allen,Norah Allen,alexander.goldin+nora@tripleten-team.com,2223434444,12/12/1988,"212 C St Austin, Alaska 41341",rec10jsMeOjLrVBcg,4/8/2026 6:17pm
+recLo94BCMSYKOyu8,JAckie,Rose,JAckie Rose,alexander.goldin+jackie@tripleten-team.com,'+1 (555) 123-4567,10/20/1988,"212 C St Austin, Alaska 99666",recoeHa0RlVHyOcVo,4/8/2026 6:23pm
+reczRvP8o7JiXbTWu,Marina,Kling,Marina Kling,alexander.goldin+kling@tripleten-team.com,4445554545,9/9/1999,"505 AMD St Anchorage, Alaska 12314",recLYWCv6mSNG3j1n,4/8/2026 6:25pm
+recGcxymMQP0QBqkA,John,Wick,John Wick,alexander.goldin+jwick@tripleten-team.com,'+1 (555) 123-4567,12/9/1977,"489 Mister Lane Houston, Texas 78989",recLDI1erpocM6Mxi,4/13/2026 6:43am
+recnu0AJark8IXFSC,Miranda,Spelbeerg,Miranda Spelbeerg,alexander.goldin+msp@tripleten-team.com,'+1 (555) 123-4567,2/3/1999,"505 kamikadze St Austin, Texas 78989","recQNtpiZQA9wXb5C,rec8tPzgzF1geLSpi",4/13/2026 8:28am
+recnvW09qUxssnJYa,Mandy,Liv,Mandy Liv,greg.huynh97+mandyliv@gmail.com,5104687486,12/19/1991,"321 Main St Santa Ana, California 92577",recjeMA8UIdqExKRN,4/13/2026 10:42am
+rectJSM0pb4mnUdIG,Edwin,Chase,Edwin Chase,greg.huynh97+edwinchase@gmail.com,7148579854,12/21/1988,"845 3rd Ave San Clemente, California 95899",recgnEUYum58Z33mP,4/13/2026 10:51am
+rec6TxOO0m0EAnAH8,Alexander,Goldin,Alexander Goldin,alexander.goldin+sample@tripleten-team.com,'+1 (555) 123-4567,11/11/1999,"212 B St Austin, Alaska 78765",rectGACid3TSHHs4j,4/13/2026 11:22am
+recUvKfihVaHWI002,David,Smith,David Smith,ds+annettepartida@gmail.com,805-445-1215,12/12/1995,"155 Greenwood St. Fresno, California 93564",recEz6QuVWDg4g78m,4/14/2026 1:15pm
+recp6ar15wXsVaxQw,John,Smith,John Smith,alexander.goldin+jsmith@tripleten-team.com,'+1 (555) 123-4567,3/3/1999,"505 CCC St Austin, Alaska 99666",recoIWwvAnq9T4gpj,4/15/2026 4:18pm
+recibMhRxMlP9kxh2,Robert,De Niro,Robert De Niro,alexander.goldin+rniro@tripleten-team.com,6765456767,11/16/1965,"567 Russell Dr Lehi, Utah 84043",recAMWWYdHdsDUvfh,4/17/2026 4:37pm
+recKZB6C0E3NQScQB,Donald,Trump,Donald Trump,DT+annettepartida@gmail.com,555-111-2222,9/22/1944,"1201 Penny Lane Dallas, Texas 63251",recZEgTwWp7zHGD7C,4/18/2026 12:10pm
+recTD99pmwrnCPho6,Annabelle,Evans,Annabelle Evans,annettepartida+ae@gmail.com,888-987-6543,1/26/1954,"7171 Golden Blvd. #8 Freemont, California 94112",recVrayduFinV5Boz,4/18/2026 1:01pm
+recXq9bBBgnM0qiXn,Sunny,Lopez,Sunny Lopez,annettepartida+sl@gmail.com,555-222-4444,1/31/1999,"1215 Olive Street Seatlle, Washington 93456",rec6iXn9GYvUFRA6x,4/18/2026 2:12pm
+recOvYm9pu92O4bHp,Donald,Duck,Donald Duck,xiolared+dd@gmail.com,888-999-7945,1/26/1997,"P.O. box 171 Grover Beach, California 93483",rec52fJKIGCkMmfdO,4/19/2026 11:36am
+recZ1MOtNdr8dA2uT,Charley,Johnie,Charley Johnie,alexander.goldin+cjohnie@tripleten-team.com,5551234567,12/12/2005,"212 B St Austin, Alaska 54545",reccY7SqVjmYQf4DO,4/20/2026 8:08am
+recJCDkohjPXkcA7B,Sandra,Sollo,Sandra Sollo,alexander.goldin+ssollo@tripleten-team.com,5551234567,12/12/1999,"212 g St Austin, Arizona 54545",recLDezg39srUoZrF,4/20/2026 8:38am
+recIlMuF3iSXTZ5mx,Anthony,Klements,Anthony Klements,alexander.goldin+akle@tripleten-team.com,5551234567,11/11/2011,"212 B St Austin, Alabama 54545",rec76uvJrQnxyCV08,4/20/2026 8:47am
+reci03EbmMC4Jxg8P,Alexander,Goldin,Alexander Goldin,alexander.goldin+newapps@tripleten-team.com,5551234567,2/21/1999,"212 B St Austin, Texas 54545",recUXoBEli6c9zGYA,4/20/2026 10:59am
+recElB4JeDtYqiChZ,Jessica,Andrews,Jessica Andrews,alexander.goldin+jandrews@tripleten-team.com,5551234567,6/6/1996,"123 B St Anchorage, Alaska 54545",recPmmqK21MyFylFM,4/20/2026 11:09am
+recRVneyrVu6gUZSu,David,Smith,David Smith,xiolared+dv@gmail.com,555-444-1223,1/12/1995,"1519 C Street Sacramento, California 92354",recDc02Pm0itQGa0p,4/20/2026 3:22pm
+recd4kSXMVSJO33uj,Barbara,Boring,Barbara Boring,alexander.goldin+bb@tripleten-team.com,5551234567,12/12/1997,"212 w 13th ave Austin, Texas 54545",recbpihpr1IFeWLyk,4/21/2026 4:17am
+recuLaf7yRXaBimPn,Michael,Moore,Michael Moore,alexander.goldin+mmoore@tripleten-team.com,5551234567,11/11/1999,"212 B St Austin, Alaska 54545",recnvkfe1hlIrA0yK,4/21/2026 4:37am
+recTcPBWAKUDrBPaq,Benny,Lancaster,Benny Lancaster,xiolared+bl@gmail.com,202-649-1614,1/1/1999,"P.O. box 888 Hollywood, California 90219",recabnxc7d5Z5oyDh,4/21/2026 8:09am
+recSru4nlQneIhcKU,Henry,Miller,Henry Miller,xiolared+hm@gmail.com,1-554-239-6872,1/1/1999,"788 Christmas Tree Lane Seatlle, Washington 92110","rec72PLC7JTFODaQz,recCB1TjuqE2vAgpd",4/21/2026 11:26am
+reclN0hzVH5YQ0mLN,Jordan,River,Jordan River,alexander.goldin+jriver@tripleten-team.com,5551234567,11/11/1999,"212 B St Austin, Texas 54545",recXH0E8VnGb4Hk8l,4/21/2026 11:40am
+recOMFTy7gKzIRDTR,George,Miles,George Miles,alexander.goldin+gmiles@tripleten-team.com,5551234567,12/12/1999,"212 B St Austin, Alaska 54545",rechf5w78LBkJi88l,4/21/2026 11:47am
