@@ -26,6 +26,26 @@ fox-finance-deliverables/
 
 ---
 
+## External Repositories
+
+This project consists of multiple components hosted in separate repositories:
+
+### Frontend (Lovable)
+Repository: https://github.com/xiolared888/warm-home-financethe
+Description: Client-facing application for submitting and managing loan applications
+
+### Backend API (FastAPI)
+Repository: https://github.com/SashaGoldin/fox-finance-api
+Description: Handles backend logic, including secure file uploads (AWS S3 presigned URLs) and integration with Airtable
+
+### n8n Workflows
+Located in this repository under /n8n-workflows
+Description: Automation workflows for processing applications and sending notifications
+
+### Airtable
+CSV exports and schema located in /airtable
+Description: Central database for storing application data
+
 ## N8N Workflows
 
 ### 1. Contact Form Auto-Reply
