@@ -1,0 +1,4 @@
+Upload ID,Application ID,Filename,Document Type,File Size,Upload Date,Status
+UP-001,APP-001,jane_doe_pay_stub.pdf,Proof of Income,245000,2026-04-20 15:00:00,Clean
+UP-002,APP-003,sarah_wilson_id.jpg,ID,1024000,2026-04-18 10:30:00,Clean
+UP-003,APP-003,sarah_wilson_income_2023.pdf,Proof of Income,567000,2026-04-18 11:15:00,Clean

@@ -1,0 +1,2396 @@
+{
+  "name": "2) Fox Finance's Loan Application Intake",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "loan-application",
+        "options": {
+          "allowedOrigins": "*",
+          "responseCode": {
+            "values": {
+              "responseCode": 201
+            }
+          }
+        }
+      },
+      "id": "598dfb53-aedd-44ff-87ce-ecceb7fc643e",
+      "name": "Loan Application Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        0
+      ],
+      "webhookId": "a76ce4f6-8374-4645-915a-57ffe0f1f563",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbljb8QrynopeYs5x",
+          "mode": "list",
+          "cachedResultName": "clients",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbljb8QrynopeYs5x"
+        },
+        "filterByFormula": "=LOWER({Email Address}) = LOWER('{{$json.body.email}}')",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        0
+      ],
+      "id": "48dc7648-b1cc-4168-8386-81a0bc01dc6d",
+      "name": "Search records",
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/1CtNsvVgrLNxu0XILstg0H5zed_SJciUPtSzPAnPFo8Y/edit?usp=sharing",
+        "simple": false
+      },
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        176
+      ],
+      "id": "8908b3f4-7661-48a9-83e5-b6299c8d0da9",
+      "name": "Get a document in Google Docs",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "9ilp20fDQTf00tCG",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "1edfe1cb-e954-403d-9e03-f1f847dadd9f",
+              "leftValue": "={{ $json['Client ID'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        400,
+        0
+      ],
+      "id": "d8c93059-f814-4d6b-813a-0022356a1686",
+      "name": "Does Client Exist?"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbljb8QrynopeYs5x",
+          "mode": "list",
+          "cachedResultName": "clients",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbljb8QrynopeYs5x"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "First Name": "={{ $('Loan Application Webhook').item.json.body.firstName }}",
+            "Last Name": "={{ $('Loan Application Webhook').item.json.body.lastName }}",
+            "Email Address": "={{ $('Loan Application Webhook').item.json.body.email }}",
+            "Phone Number": "={{ $('Loan Application Webhook').item.json.body.phone }}",
+            "Date of Birth": "={{ $('Loan Application Webhook').item.json.body.dob }}",
+            "Address": "={{ $('Loan Application Webhook').item.json.body.streetAddress }} {{ $('Loan Application Webhook').item.json.body.city }}, {{ $('Loan Application Webhook').item.json.body.state }} {{ $('Loan Application Webhook').item.json.body.zipCode }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Client ID",
+              "displayName": "Client ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "First Name",
+              "displayName": "First Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Name",
+              "displayName": "Last Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Email Address",
+              "displayName": "Email Address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Date of Birth",
+              "displayName": "Date of Birth",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "applications",
+              "displayName": "applications",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Created At",
+              "displayName": "Created At",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "upload_links",
+              "displayName": "upload_links",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        608,
+        64
+      ],
+      "id": "e74ecfbc-6b58-4c6c-b65a-8b85ce6faaf0",
+      "name": "Create New Client",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl6QMr05RqJSOPBw",
+          "mode": "list",
+          "cachedResultName": "applications",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbl6QMr05RqJSOPBw"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Loan Amount Requested": "={{ $('Loan Application Webhook').item.json.body.loanAmount }}",
+            "Client": "={{ [$json.id] }}",
+            "Status": "Submitted",
+            "Loan Purpose": "={{ $('Loan Application Webhook').item.json.body.notes }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Application ID",
+              "displayName": "Application ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Client",
+              "displayName": "Client",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Application Date",
+              "displayName": "Application Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Loan Amount Requested",
+              "displayName": "Loan Amount Requested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Loan Purpose",
+              "displayName": "Loan Purpose",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Submitted",
+                  "value": "Submitted"
+                },
+                {
+                  "name": "Under Review",
+                  "value": "Under Review"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Documents Requested",
+                  "value": "Documents Requested"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Denial Reason",
+              "displayName": "Denial Reason",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Document Requests",
+              "displayName": "Document Requests",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Upload Links",
+              "displayName": "Upload Links",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "uploads",
+              "displayName": "uploads",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        800,
+        -16
+      ],
+      "id": "036afde6-f9dc-490d-929d-ff6256701a2a",
+      "name": "Create a New Loan",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n\t\"status\": \"Approved\",\n\t\"requestedDocuments\": [\n   {\"name\": \"passport\", \"description\": \"make sure passport is not expired\"},\n{\"name\": \"paystubs\", \"description\": \"please submit your paystubs for the last three months\"},\n{\"name\": \"bank statement\", \"description\": \"last 2 months\"},\n{\"name\": \"employer verification letter\", \"description\": \"\"}\n],\n  \"denial_reason\": \"\"\n}\n\n\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1264,
+        224
+      ],
+      "id": "ff72fe1a-0048-479b-af88-e8bf5a0b29af",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Loan application to review:\n\nApplicant:{{ $json.fields.Client[0] }}\n- firstName: {{ $('Loan Application Webhook').item.json.body.firstName }}\n- lastName: {{ $('Loan Application Webhook').item.json.body.lastName }}\n- email: {{ $('Loan Application Webhook').item.json.body.email }}\n- address: {{ $('Loan Application Webhook').item.json.body.streetAddress }}, {{ $('Loan Application Webhook').item.json.body.city }}, {{ $('Loan Application Webhook').item.json.body.state }}\n- phone: {{ $('Loan Application Webhook').item.json.body.phone }}\n- Date of Birth: {{ $('Loan Application Webhook').item.json.body.dob }}\n\n\nLoan:\n- loanAmount: {{ $('Loan Application Webhook').item.json.body.loanAmount }}\n- loanReason: {{ $('Loan Application Webhook').item.json.body.notes }}\n\nFinancials:\n- employmentStatus: {{ $('Loan Application Webhook').item.json.body.employmentStatus }}\n- monthlyIncome: {{ $('Loan Application Webhook').item.json.body.monthlyIncome }}\n\n\n\n",
+        "hasOutputParser": true,
+        "needsFallback": true,
+        "options": {
+          "systemMessage": "You are a loan pre-approval assistant for a loan company.\n\nYour job:\n1) Must use the document tool every time to read the loan rules.\n2) Review the loan application details you receive.\n3) Output a decision: \"Approved\" or \"Denied\".\n4) If Approved: output a list of requested documents (name + short description).\n5) If Denied: output a clear denial_reason.\n\nNOTE: don't deny loan because of missing documents: those will be provided later if loan meets initial criteria. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1008,
+        -16
+      ],
+      "id": "bc03d48a-8ab1-4365-8016-02be3bd69eed",
+      "name": "Loan Analyzer",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "40dc077c-2fcc-4113-9e53-1a2918c80f68",
+              "leftValue": "={{ $json.output.status }}",
+              "rightValue": "Approved",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1344,
+        -16
+      ],
+      "id": "0af5db3c-20aa-461f-9deb-125ba6512327",
+      "name": "Is Loan Process Approved"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblRWfUti08nNBYMs",
+          "mode": "list",
+          "cachedResultName": "upload_links",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tblRWfUti08nNBYMs"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Loan Application": "={{ [$('Create a New Loan').item.json.id] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Upload Link ID",
+              "displayName": "Upload Link ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Loan Application",
+              "displayName": "Loan Application",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "token",
+              "displayName": "token",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "clientId",
+              "displayName": "clientId",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Upload URL",
+              "displayName": "Upload URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Documents",
+              "displayName": "Documents",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "expiresAt",
+              "displayName": "expiresAt",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "IsActive",
+              "displayName": "IsActive",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Created At",
+              "displayName": "Created At",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "uploads",
+              "displayName": "uploads",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1536,
+        -112
+      ],
+      "id": "4d0a17af-46b0-496a-972a-64c7e2dfe0dc",
+      "name": "Create Upload Link",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl6QMr05RqJSOPBw",
+          "mode": "list",
+          "cachedResultName": "applications",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbl6QMr05RqJSOPBw"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Documents Requested",
+            "id": "={{ $('Create a New Loan').item.json.id }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Application ID",
+              "displayName": "Application ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Client",
+              "displayName": "Client",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Application Date",
+              "displayName": "Application Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Loan Amount Requested",
+              "displayName": "Loan Amount Requested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Loan Purpose",
+              "displayName": "Loan Purpose",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Submitted",
+                  "value": "Submitted"
+                },
+                {
+                  "name": "Under Review",
+                  "value": "Under Review"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Documents Requested",
+                  "value": "Documents Requested"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Denial Reason",
+              "displayName": "Denial Reason",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Upload Links",
+              "displayName": "Upload Links",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Document Requests",
+              "displayName": "Document Requests",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "uploads",
+              "displayName": "uploads",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2224,
+        -272
+      ],
+      "id": "1c4dcda0-8e0c-4603-8f2f-64808cf9abfc",
+      "name": "Update Status to Docs Requested",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "foxfinanceadmin+annettepartida@gmail.com",
+        "subject": "Cannot Reach Customer via Email",
+        "emailType": "text",
+        "message": "=Dear Fox Finance Team,\n\nThis email is to notify you that a client's loan has been rejected due to insufficient information.\n\nPlease look up client {{ $('Search records').item.json['First Name'] }} {{ $('Search records').item.json['Last Name'] }}and call them at number {{ $('Loan Application Webhook').item.json.body.phone }} to follow up on loan application.\n\nSincerly,\nFox Finance Team",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Support Team"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2320,
+        16
+      ],
+      "id": "f0081ee2-da88-4e20-9d05-8e8e7f9a10b4",
+      "name": "Docs Requested Email Failed",
+      "webhookId": "8bb19928-a00f-4c55-8d20-845b381846ef",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "get_details/:loan-id",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        352,
+        1248
+      ],
+      "id": "ed3e26fd-c02a-4930-86ce-d2a4e7150753",
+      "name": "Webhook",
+      "webhookId": "97284c1f-4486-43a3-854a-19e0251e705a"
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbljb8QrynopeYs5x",
+          "mode": "list",
+          "cachedResultName": "clients",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbljb8QrynopeYs5x"
+        },
+        "id": "={{ $json.Client[0] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        768,
+        1248
+      ],
+      "id": "f0b647b6-fdea-4421-83bf-75fbe15493f4",
+      "name": "GetAllClientInfo",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n{\n  reasonForLoan: $('Get loan ID details').item.json['Loan Purpose'],\n  address: $('GetAllClientInfo').item.json.Address,\n  dateOfBirth: $('GetAllClientInfo').item.json['Date of Birth'],\n  documents: $json.documents\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        3168,
+        1264
+      ],
+      "id": "3550d048-e6fe-46aa-b436-a11f302d3279",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl6QMr05RqJSOPBw",
+          "mode": "list",
+          "cachedResultName": "applications",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbl6QMr05RqJSOPBw"
+        },
+        "id": "={{ $json.params['loan-id'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        576,
+        1248
+      ],
+      "id": "0a17c85a-8dd5-40bc-a779-688afe6edcdb",
+      "name": "Get loan ID details",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblRWfUti08nNBYMs",
+          "mode": "list",
+          "cachedResultName": "upload_links",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tblRWfUti08nNBYMs"
+        },
+        "id": "={{ $json['Upload Links'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1648,
+        896
+      ],
+      "id": "1bda586b-f485-4489-b1ce-c71fd59492fd",
+      "name": "GetAllUploadLinkInfo",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n{\n  reasonForLoan: $('Get loan ID details').item.json['Loan Purpose'],\n  address: $('GetAllClientInfo').item.json.Address,\n  dateOfBirth: $('GetAllClientInfo').item.json['Date of Birth']\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1680,
+        1504
+      ],
+      "id": "d5c2c3a6-730b-473b-92a8-1d93177b238d",
+      "name": "ifSubmittedStatusResponse"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{\n{\n  reasonForLoan: $('Get loan ID details').item.json[\"Loan Purpose\"],\n  address: $('GetAllClientInfo').item.json.Address,\n  dateOfBirth: $('GetAllClientInfo').item.json['Date of Birth'],\n  denialReason: $('Get loan ID details').item.json['Denial Reason']\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1952,
+        1776
+      ],
+      "id": "db4073f6-ea55-4541-acc1-88aae05be795",
+      "name": "ifRejectedStatusResponse"
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblSkOrpv1QMXKldI",
+          "mode": "list",
+          "cachedResultName": "uploads",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tblSkOrpv1QMXKldI"
+        },
+        "id": "={{ $json.uploads }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2448,
+        992
+      ],
+      "id": "9661f087-988c-4c84-a1b0-2b97a3411397",
+      "name": "GetUploadsRecord",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const groups = new Map();\n\nfor (const item of $input.all()) {\n  const row = item.json;\n\n  const hasUpload = !!row.download_url;\n  const docNames = hasUpload\n    ? (row[\"Documents (from uploadLinkId)\"] || [])\n    : (row.name ? [row.name] : []);\n\n  for (const doc of docNames) {\n    if (!doc) continue;\n\n    if (!groups.has(doc)) {\n      groups.set(doc, new Set());\n    }\n\n    if (hasUpload) {\n      groups.get(doc).add(row.download_url);\n    }\n  }\n}\n\nconst result = Array.from(groups.entries()).map(([document, urlsSet]) => ({\n  document,\n  download_urls: Array.from(urlsSet),\n}));\n\nresult.sort((a, b) => a.document.localeCompare(b.document));\n\nreturn [{ json: { documents: result } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2736,
+        1024
+      ],
+      "id": "4082e741-caa4-49c2-91b9-08f5dbd7a7c3",
+      "name": "PrepareResponseForWebhook"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "36086e10-b6c7-43d9-87e8-c36479546552",
+              "leftValue": "={{ $json.uploads }}",
+              "rightValue": "Documents Requested",
+              "operator": {
+                "type": "array",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2032,
+        1120
+      ],
+      "id": "0c9daf35-a27d-4af1-b076-8b1c1ff5d3e1",
+      "name": "IfUploadsPresent"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "uploads",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2208,
+        992
+      ],
+      "id": "08d1597d-44fe-426b-9765-7afa7b8533ab",
+      "name": "Split Out Uploads"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "Documents",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        1168
+      ],
+      "id": "070d62df-c8e3-43c3-83ea-c73911d37b8f",
+      "name": "Split Out Docs"
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblzcUFw7E2YhfOs0",
+          "mode": "list",
+          "cachedResultName": "document_requests",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tblzcUFw7E2YhfOs0"
+        },
+        "id": "={{ $json.Documents }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2464,
+        1168
+      ],
+      "id": "2c800118-4c74-4fae-9b64-3783efaa53a3",
+      "name": "GetDocsRecords",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2944,
+        -192
+      ],
+      "id": "53cd07a2-b3e8-445d-9c92-c5882ea6e9e7",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Get loan ID details').item.json.Status }}",
+                    "rightValue": "Under Review",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "1b69a915-fb25-4a27-97df-13af04e5bb99"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "UnderReview"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "70ae1b4c-98db-4b00-91d9-8ae86cfb97c3",
+                    "leftValue": "={{ $('Get loan ID details').item.json.Status }}",
+                    "rightValue": "Documents Requested",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "DocReq"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "46bc2324-6a22-4d26-8c1e-3a7ae3bb09ed",
+                    "leftValue": "={{ $('Get loan ID details').item.json.Status }}",
+                    "rightValue": "Approved",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Approved"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "c5c1dc83-a7bb-4c3c-a283-f0d600c4966c",
+                    "leftValue": "={{ $('Get loan ID details').item.json.Status }}",
+                    "rightValue": "Submitted",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Submitted"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "93900b48-faad-486a-a71b-3d95855da234",
+                    "leftValue": "={{ $('Get loan ID details').item.json.Status }}",
+                    "rightValue": "Rejected",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Rejected"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        944,
+        1184
+      ],
+      "id": "09cbabe6-e2a7-497f-956d-1a4924cbb2b2",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "Documents"
+            },
+            {
+              "fieldToAggregate": "uploads"
+            }
+          ]
+        },
+        "options": {
+          "mergeLists": true
+        }
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1904,
+        976
+      ],
+      "id": "4db7b809-e50d-4130-9921-592b9fee08c2",
+      "name": "Aggregate",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "Upload Links",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1472,
+        992
+      ],
+      "id": "d335ee6b-47ad-4e89-a578-6b56941def61",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "25f29f06-7be3-4b26-aa25-5aeec67b1512",
+              "name": "Upload Links",
+              "value": "={{ $('Get loan ID details').item.json['Upload Links'] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1280,
+        1120
+      ],
+      "id": "2e90138a-f8ac-4cb6-ac11-ccdc93de759d",
+      "name": "SetUploadLinks"
+    },
+    {
+      "parameters": {
+        "model": "magistral-small-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        992,
+        176
+      ],
+      "id": "9da2cb39-3e32-41d9-9833-7227acab15f3",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "LslAKSkZyB52Ufdy",
+          "name": "Mistral Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        864,
+        192
+      ],
+      "id": "663fb6ac-da61-4d4b-bcb4-6c1f1848423b",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "erz5eyoOlZX5bP1x",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Create a New Loan').item.json.fields.Email[0] }}",
+        "subject": "Please Submit Documents for Loan",
+        "emailType": "text",
+        "message": "=Hi {{ $('Loan Application Webhook').item.json.body.firstName }} {{ $('Loan Application Webhook').item.json.body.lastName }},\n\nPlease submit the following documents to get your loan process started:\n\n{{ $('GenerateLink').item.json.url }}\n\nOnce we receive these, we can continue processing your loan promptly.\n\nThank you,\nFox Finance Team ",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Support Team"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2416,
+        -272
+      ],
+      "id": "7ac5fab8-8669-4c4f-8512-f5ddc1ac098f",
+      "name": "NotifyClient",
+      "webhookId": "11d13f24-030a-47c9-be2e-978fb001840b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "foxfinanceadmin+annettepartida@gmail.com",
+        "subject": "New Loan Created",
+        "emailType": "text",
+        "message": "=Hello Fox Finance Team,  \n\nA new loan for review has been created in the system. Here are the details:  \n\nApplicant Name: {{ $('Create a New Loan').item.json.fields['Full Name'][0] }}\nLoan ID: {{ $('Create a New Loan').item.json.fields['Application ID'] }}\nLoan Amount: ${{ $('Create a New Loan').item.json.fields['Loan Amount Requested'] }}\n\nPlease review and take the necessary actions to proceed with processing this loan.  \n\nThank you, \nFox Finance team",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2640,
+        -144
+      ],
+      "id": "aad6acd0-18b7-40de-8e12-40562dd0d788",
+      "name": "NotifyAdmin",
+      "webhookId": "40f49ba2-c90c-4018-9ad3-48132a8f1680",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl6QMr05RqJSOPBw",
+          "mode": "list",
+          "cachedResultName": "applications",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbl6QMr05RqJSOPBw"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Status": "Rejected",
+            "Application ID": "={{ $('Create a New Loan').item.json.fields['Application ID'] }}",
+            "Denial Reason": "={{ $json.output.denial_reason }}"
+          },
+          "matchingColumns": [
+            "Application ID"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Application ID",
+              "displayName": "Application ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Client",
+              "displayName": "Client",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Application Date",
+              "displayName": "Application Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Loan Amount Requested",
+              "displayName": "Loan Amount Requested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Loan Purpose",
+              "displayName": "Loan Purpose",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Submitted",
+                  "value": "Submitted"
+                },
+                {
+                  "name": "Under Review",
+                  "value": "Under Review"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Documents Requested",
+                  "value": "Documents Requested"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Denial Reason",
+              "displayName": "Denial Reason",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Upload Links",
+              "displayName": "Upload Links",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1536,
+        80
+      ],
+      "id": "40f0cab1-d5ea-493b-ac71-7e566ca3ab4d",
+      "name": "DenyLoanUpdate",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Loan Application Webhook').item.json.body.email }}",
+        "subject": "Loan Declined",
+        "emailType": "text",
+        "message": "=Dear {{ $('Loan Application Webhook').item.json.body.firstName }} {{ $('Loan Application Webhook').item.json.body.lastName }},\n\nThank you for applying with Fox Finance. After reviewing your application, we’re unable to approve your loan at this time.\n\nThe reason for denial is the following:\n{{ $json.fields['Denial Reason'] }}\n\nYou’re welcome to reapply in the future if your financial situation changes. For questions, please contact our support team.\n\nSincerely,\nFox Finance Customer Support Team\n",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Support Team"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1760,
+        80
+      ],
+      "id": "300a510e-d65c-4fc0-9c77-58c51b31a794",
+      "name": "NotifyClientOfDenial",
+      "webhookId": "3f2413b2-ded8-4684-af5a-b40571a8532c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://fox-finance-api.ngrok.app/api/admin/upload-links",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"linkId\": $json.id, \"clientId\": $('Create a New Loan').item.json.fields.Client[0], \"requestedDocuments\": $('Loan Analyzer').item.json.output.requestedDocuments, \"expiresAt\": $now.plus({ days: 7 }) } }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1760,
+        -112
+      ],
+      "id": "ae9a72ce-6f2c-4cfd-93df-775d8981909b",
+      "name": "GenerateLink",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "d992a5ec-1018-4304-b9b2-b4103c2e0a1e",
+              "leftValue": "={{ $json.url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1984,
+        -112
+      ],
+      "id": "e1db4bc7-2371-4f3a-ab3f-784644ba74f9",
+      "name": "IfLinkGenerated"
+    },
+    {
+      "parameters": {
+        "content": "## Main Loan Flow\nCreating a new loan application. Doing preliminary analysis with AI based on requirements. Generating upload_link. Updating the database"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "1a105bfb-c1ae-473e-a78b-5085e8bb6d37",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Show details button\n\nThis flow handles \"Show Details\" button in the admin's dashboard.\n\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        320,
+        1072
+      ],
+      "typeVersion": 1,
+      "id": "71098568-a1c2-40ed-940b-9389bb14c6ba",
+      "name": "Sticky Note1"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "annettepartida.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "2a00:ee2:1200:8400:9d96:2b64:a188:a0ff",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "SI",
+            "cf-ray": "9e8b92777c39dca0-FRA",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "origin": "https://warm-home-finance.lovable.app",
+            "priority": "u=1, i",
+            "referer": "https://warm-home-finance.lovable.app/",
+            "sec-ch-ua": "\"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "2a00:ee2:1200:8400:9d96:2b64:a188:a0ff, 172.71.148.11",
+            "x-forwarded-host": "annettepartida.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-81-66765d9f5c-2wtcq",
+            "x-is-trusted": "yes",
+            "x-real-ip": "2a00:ee2:1200:8400:9d96:2b64:a188:a0ff"
+          },
+          "params": {
+            "loan-id": "recWd45to2AglhXa3"
+          },
+          "query": {},
+          "body": {},
+          "webhookUrl": "https://annettepartida.app.n8n.cloud/webhook/97284c1f-4486-43a3-854a-19e0251e705a/get_details/:loan-id",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Loan Application Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "annettepartida.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+            "content-length": "395",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "2a00:ee2:1200:8400:2c3c:8b56:9fd6:e2ef",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "SI",
+            "cf-ray": "9ebacfa5fb99cb3f-FRA",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "origin": "https://warm-home-finance.lovable.app",
+            "priority": "u=1, i",
+            "referer": "https://warm-home-finance.lovable.app/",
+            "sec-ch-ua": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "2a00:ee2:1200:8400:2c3c:8b56:9fd6:e2ef, 172.70.248.189",
+            "x-forwarded-host": "annettepartida.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-81-8cbc5f4fb-9lt6d",
+            "x-is-trusted": "yes",
+            "x-real-ip": "2a00:ee2:1200:8400:2c3c:8b56:9fd6:e2ef"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "firstName": "Miranda",
+            "lastName": "Spelbeerg",
+            "email": "alexander.goldin+msp@tripleten-team.com",
+            "phone": "+1 (555) 123-4567",
+            "streetAddress": "505 kamikadze St",
+            "city": "Austin",
+            "zipCode": "78989",
+            "state": "Texas",
+            "loanAmount": 4500,
+            "employmentStatus": "Employed",
+            "monthlyIncome": 7000,
+            "monthlyExpenses": 2000,
+            "dob": "02-03-1999",
+            "notes": "I want to buy a gift for my spouse. will pay back in 4-5 months "
+          },
+          "webhookUrl": "https://annettepartida.app.n8n.cloud/webhook/loan-application",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Loan Application Webhook": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records": {
+      "main": [
+        [
+          {
+            "node": "Does Client Exist?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a document in Google Docs": {
+      "ai_tool": [
+        [
+          {
+            "node": "Loan Analyzer",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Does Client Exist?": {
+      "main": [
+        [
+          {
+            "node": "Create a New Loan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create New Client",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create New Client": {
+      "main": [
+        [
+          {
+            "node": "Create a New Loan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a New Loan": {
+      "main": [
+        [
+          {
+            "node": "Loan Analyzer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Loan Analyzer",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loan Analyzer": {
+      "main": [
+        [
+          {
+            "node": "Is Loan Process Approved",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Loan Process Approved": {
+      "main": [
+        [
+          {
+            "node": "Create Upload Link",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "DenyLoanUpdate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Upload Link": {
+      "main": [
+        [
+          {
+            "node": "GenerateLink",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get loan ID details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetAllClientInfo": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get loan ID details": {
+      "main": [
+        [
+          {
+            "node": "GetAllClientInfo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetAllUploadLinkInfo": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetUploadsRecord": {
+      "main": [
+        [
+          {
+            "node": "PrepareResponseForWebhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PrepareResponseForWebhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IfUploadsPresent": {
+      "main": [
+        [
+          {
+            "node": "Split Out Uploads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Split Out Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Uploads": {
+      "main": [
+        [
+          {
+            "node": "GetUploadsRecord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Docs": {
+      "main": [
+        [
+          {
+            "node": "GetDocsRecords",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetDocsRecords": {
+      "main": [
+        [
+          {
+            "node": "PrepareResponseForWebhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Status to Docs Requested": {
+      "main": [
+        [
+          {
+            "node": "NotifyClient",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Docs Requested Email Failed": {
+      "main": [
+        [
+          {
+            "node": "NotifyAdmin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "SetUploadLinks",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SetUploadLinks",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SetUploadLinks",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ifSubmittedStatusResponse",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ifRejectedStatusResponse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "IfUploadsPresent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "GetAllUploadLinkInfo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SetUploadLinks": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Loan Analyzer",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Loan Analyzer",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NotifyClient": {
+      "main": [
+        [
+          {
+            "node": "NotifyAdmin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NotifyAdmin": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DenyLoanUpdate": {
+      "main": [
+        [
+          {
+            "node": "NotifyClientOfDenial",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NotifyClientOfDenial": {
+      "main": [
+        []
+      ]
+    },
+    "GenerateLink": {
+      "main": [
+        [
+          {
+            "node": "IfLinkGenerated",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IfLinkGenerated": {
+      "main": [
+        [
+          {
+            "node": "Update Status to Docs Requested",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Docs Requested Email Failed",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "d9d6a3cc-9412-44ff-bd7b-79c729e23bae",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8d6a5242629bd7a1e65aa30be331de3e973dfc623bdd62b21b44a73c28540a0b"
+  },
+  "id": "dbjviRTQBvNsdPO0",
+  "tags": []
+}

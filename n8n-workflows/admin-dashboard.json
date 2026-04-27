@@ -1,0 +1,163 @@
+{
+  "name": "4) Admin Dashboard Display Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "admin-ui-test",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "id": "c0d55a95-4730-4db5-b4fc-6013b61d1998",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        304
+      ],
+      "webhookId": "6df89f9a-a689-40d6-92cc-b38171c7c66b"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { data: $json.records, count: $json.count } ",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "e2038b6c-9c3c-428d-9ac3-cdaf87b54df5",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        912,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Run Once for All Items (recommended for aggregation)\nconst items = $input.all();\n\nconst first = (v) => Array.isArray(v) ? v[0] : v;\n\nconst records = items.map((item) => {\n  const r = item.json;\n\n  return {\n    id: r.id,\n    createdTime: r.createdTime,\n    \"Application ID\": r[\"Application ID\"],\n    Client: first(r.Client),\n    \"Loan Amount Requested\": r[\"Loan Amount Requested\"],\n    Status: r.Status,\n    \"Upload Links\": first(r[\"Upload Links\"]),\n    \"Full Name\": first(r[\"Full Name\"]),\n    Email: first(r.Email),\n  };\n});\n\n// Return ONE item that contains an array of 5 records\nreturn [\n  {\n    json: {\n      count: records.length,\n      records,\n    },\n  },\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        304
+      ],
+      "id": "be61019a-4590-4a59-a913-4a196e7f313e",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl6QMr05RqJSOPBw",
+          "mode": "list",
+          "cachedResultName": "applications",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbl6QMr05RqJSOPBw"
+        },
+        "options": {},
+        "sort": {
+          "property": [
+            {
+              "field": "Application Date",
+              "direction": "desc"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        496,
+        304
+      ],
+      "id": "84aba604-7318-4066-b82b-967257042fc7",
+      "name": "All Loan Applications",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Admin Dashboard \n\nThis shows all loans sorted from newest to oldest"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        128,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "1a1a85c1-3bb7-43b9-9676-236e7ed7ff00",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "All Loan Applications",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "All Loan Applications": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "58234153-f34b-469f-be02-1f5af05cd350",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8d6a5242629bd7a1e65aa30be331de3e973dfc623bdd62b21b44a73c28540a0b"
+  },
+  "id": "Igj5N1tp70x6F9qV",
+  "tags": []
+}

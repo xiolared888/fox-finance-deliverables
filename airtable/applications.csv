@@ -1,0 +1,6 @@
+Application ID,Client Email,Loan Amount Requested,Purpose,Status,Application Date,AI Decision,Documents Requested
+APP-001,jane.doe@example.com,75000,Home,Documents Requested,2026-04-20 14:30:00,Eligible pending income verification,"Proof of Income, Tax Returns, Bank Statement"
+APP-002,john.smith@example.com,50000,Business,Under Review,2026-04-19 09:15:00,Analysis in progress,"Proof of Income, Business Plan"
+APP-003,sarah.wilson@example.com,100000,Home,Approved,2026-04-18 16:45:00,Approved - strong financial profile,
+APP-004,michael.johnson@example.com,45000,Auto,Denied,2026-04-17 11:20:00,Denied - insufficient income for loan amount,
+APP-005,emily.brown@example.com,60000,Personal,Submitted,2026-04-16 13:00:00,Pending analysis,

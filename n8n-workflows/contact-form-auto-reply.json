@@ -1,0 +1,363 @@
+{
+  "name": "1) Fox_Finance_Contact Form Auto-Reply",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=User question: {{ $json.body.message }}\n\n",
+        "needsFallback": true,
+        "options": {
+          "systemMessage": "You are a customer support assistant working for Fox Finance. Answer the question using the google document to get information. Keep your answers short and professional. Don't add additional information. \n\nYou must use the Google document tool to answer the question. If you cannot find answer in that document, reply: \"I don't have enough info to answer this question\"."
+        }
+      },
+      "id": "86925c47-4fb5-4d9e-a59b-d963496b3439",
+      "name": "Answer Question",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        704,
+        288
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.email }}",
+        "subject": "Re: Your Question",
+        "emailType": "text",
+        "message": "=Hello, {{ $('Webhook').item.json.body.name }}!\n\nYou recently asked Fox Finance: {{ $('Webhook').item.json.body.message }}\n\nHere is your answer and we hope it helps: {{ $json.output }}\n\nPlease feel free to reach out again if you have any questions.\n\nEnjoy your day,\nFox Finance Team",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Support Team"
+        }
+      },
+      "id": "bd8cf8af-cd0c-4c7e-b707-4149f336f138",
+      "name": "Email Applicant",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1392,
+        192
+      ],
+      "webhookId": "31bdaf1e-328f-4148-a63a-bf1f6f158058",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "annettepartida@gmail.com",
+        "subject": "Contact Form - Needs Manual Follow-up",
+        "emailType": "text",
+        "message": "=A contact form submission needs manual follow-up:\n\nName: {{ $('Webhook').item.json.body.name }}\nEmail: {{ $('Webhook').item.json.body.email }}\nPhone: {{ $('Webhook').item.json.body.phone }}\nMessage: {{ $('Webhook').item.json.body.message }}\n\nNote: The AI could not answer this question from the knowledge base. It produced the following answer: {{ $('Answer Question').item.json.output }}",
+        "options": {
+          "appendAttribution": false,
+          "ccList": "alexander.goldin@tripleten-team.com",
+          "senderName": "Internal Support "
+        }
+      },
+      "id": "6807cf78-b14b-426d-8e15-b7125b8dd7ae",
+      "name": "Email Admin",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1376,
+        416
+      ],
+      "webhookId": "f5abadcd-215c-40d5-8dff-c8c202f34f5c",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/1Khhn6on8wUMBQzhLXJOyMBk1iYyj9767MiqOQ1ldO-c/edit?tab=t.0",
+        "simple": false
+      },
+      "type": "n8n-nodes-base.googleDocsTool",
+      "typeVersion": 2,
+      "position": [
+        912,
+        528
+      ],
+      "id": "d8749ac2-6f82-42d0-9624-bb34c0afbeda",
+      "name": "Get a document in Google Docs",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "9ilp20fDQTf00tCG",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "contact-form",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        288
+      ],
+      "id": "8d3f5a0e-2286-4015-8224-f9d0c0638ff7",
+      "name": "Webhook",
+      "webhookId": "eed644a4-8697-453c-a87d-3153fccb7934"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "eb4d6b30-22e6-44e3-a2a6-ab35e00bef99",
+              "leftValue": "={{ $json.output }}",
+              "rightValue": "I don't have enough info to answer this question",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1056,
+        288
+      ],
+      "id": "a04ef2c9-83ad-4f9e-99d9-295be67f705d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        752,
+        528
+      ],
+      "id": "e30b85c1-ddb0-43e1-a9a6-26d2bdadc525",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "erz5eyoOlZX5bP1x",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.1-pro-preview",
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        576,
+        528
+      ],
+      "id": "a25b4784-d1b4-477e-a696-b428910a78d1",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Zfc4HxH3hSstgwvZ",
+          "name": "Alex Gemini API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Contact Us Form\n\nThis flow handles answering FAQ when user submits contact us form through home page \n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        96
+      ],
+      "typeVersion": 1,
+      "id": "f6babf2d-2d17-4743-aaf3-1f1126ef513a",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "annettepartida.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+            "content-length": "135",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "2a00:ee2:1200:8400:fcd6:a3d4:df13:cbef",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "SI",
+            "cf-ray": "9efb6c7e8e1335f6-FRA",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "origin": "https://warm-home-finance.lovable.app",
+            "priority": "u=1, i",
+            "referer": "https://warm-home-finance.lovable.app/",
+            "sec-ch-ua": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "2a00:ee2:1200:8400:fcd6:a3d4:df13:cbef, 162.158.111.167",
+            "x-forwarded-host": "annettepartida.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-81-8cbc5f4fb-g5t79",
+            "x-is-trusted": "yes",
+            "x-real-ip": "2a00:ee2:1200:8400:fcd6:a3d4:df13:cbef"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "name": "Chris Evans",
+            "email": "alexander.goldin+cevans@tripleten-team.com",
+            "phone": "555-123-4567",
+            "message": "Can i buy a lamborghini?"
+          },
+          "webhookUrl": "https://annettepartida.app.n8n.cloud/webhook/contact-form",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Answer Question": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Applicant": {
+      "main": [
+        []
+      ]
+    },
+    "Email Admin": {
+      "main": [
+        []
+      ]
+    },
+    "Get a document in Google Docs": {
+      "ai_tool": [
+        [
+          {
+            "node": "Answer Question",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Answer Question",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Email Applicant",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email Admin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Answer Question",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Answer Question",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8284b69c-2ea2-4f71-b225-8539c83dc2f5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8d6a5242629bd7a1e65aa30be331de3e973dfc623bdd62b21b44a73c28540a0b"
+  },
+  "id": "Qe38ibMkqQV3zIV4",
+  "tags": []
+}

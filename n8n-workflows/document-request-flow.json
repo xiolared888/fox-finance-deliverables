@@ -1,0 +1,670 @@
+{
+  "name": "3) Fox_Finance_Document Requested Submitted Successfully",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "submission-complete",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -176,
+        -16
+      ],
+      "id": "a5952655-7914-4143-b40f-34edc1d7bc77",
+      "name": "Document Submitted Webhook",
+      "webhookId": "2a5ce45c-4453-4695-8fcd-aed83c518bdd"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblzcUFw7E2YhfOs0",
+          "mode": "list",
+          "cachedResultName": "document_requests",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tblzcUFw7E2YhfOs0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "status": "Uploaded",
+            "id": "={{ $json.Documents }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true
+            },
+            {
+              "id": "Document ID",
+              "displayName": "Document ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "uploadLinkId",
+              "displayName": "uploadLinkId",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "fullName",
+              "displayName": "fullName",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "description",
+              "displayName": "description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Date Requested",
+              "displayName": "Date Requested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Requested",
+                  "value": "Requested"
+                },
+                {
+                  "name": "Uploaded",
+                  "value": "Uploaded"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "uploads",
+              "displayName": "uploads",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "applications",
+              "displayName": "applications",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        848,
+        -176
+      ],
+      "id": "9956fde9-0aeb-48a8-abd9-381f1dae4624",
+      "name": "Document Request Status Changed to Uploaded",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblRWfUti08nNBYMs",
+          "mode": "list",
+          "cachedResultName": "upload_links",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tblRWfUti08nNBYMs"
+        },
+        "id": "={{ $json.body.uploadLinkId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        -16
+      ],
+      "id": "fb6f43b3-267f-400f-97f4-279324ea29b0",
+      "name": "Document Request Status Changed to Uploaded1",
+      "retryOnFail": false,
+      "alwaysOutputData": false,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appqAO2An9337EWXu",
+          "mode": "list",
+          "cachedResultName": "Loan Application Automation",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tbl6QMr05RqJSOPBw",
+          "mode": "list",
+          "cachedResultName": "applications",
+          "cachedResultUrl": "https://airtable.com/appqAO2An9337EWXu/tbl6QMr05RqJSOPBw"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $json['Loan Application'][0] }}",
+            "Status": "Under Review"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true
+            },
+            {
+              "id": "Application ID",
+              "displayName": "Application ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Client",
+              "displayName": "Client",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Full Name",
+              "displayName": "Full Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Application Date",
+              "displayName": "Application Date",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": true
+            },
+            {
+              "id": "Loan Amount Requested",
+              "displayName": "Loan Amount Requested",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Loan Purpose",
+              "displayName": "Loan Purpose",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Submitted",
+                  "value": "Submitted"
+                },
+                {
+                  "name": "Under Review",
+                  "value": "Under Review"
+                },
+                {
+                  "name": "Approved",
+                  "value": "Approved"
+                },
+                {
+                  "name": "Rejected",
+                  "value": "Rejected"
+                },
+                {
+                  "name": "Documents Requested",
+                  "value": "Documents Requested"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Denial Reason",
+              "displayName": "Denial Reason",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Upload Links",
+              "displayName": "Upload Links",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Document Requests",
+              "displayName": "Document Requests",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "uploads",
+              "displayName": "uploads",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        608,
+        96
+      ],
+      "id": "0df3db84-0965-4111-93e5-76ae98ff1ca2",
+      "name": "Document Request Status Changed to Uploaded2",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "FDyTEtGeOEmruDmp",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "Documents",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        592,
+        -176
+      ],
+      "id": "741f0710-7465-49a4-bd94-682509e271e4",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "sendTo": "=annettepartida+admin@gmail.com",
+        "subject": "=Documents Received from {{ $json.fullName[0] }}",
+        "emailType": "text",
+        "message": "=Dear Fox Finance Team,\n\nThe following client has finished uploading the required documents: \n\nFull Name:  {{ $json.fullName[0] }}\nClient Email:  {{ $json.Email[0] }}\nLoan ID:  {{ $json['Loan Application'][0] }}\n\nUploads Received:\n{{ $json.uploads }}\n\nPlease review documents in the admin's dashboard.\n\nThank you, \nFox Finance Internal Support",
+        "options": {
+          "appendAttribution": false,
+          "ccList": "alexander.goldin+admin@tripleten-team.com",
+          "senderName": "Internal Support"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        288
+      ],
+      "id": "550d0ed2-d233-405f-a428-9f9ab5e3cbb6",
+      "name": "NotifyAdmin",
+      "webhookId": "33fa1c00-e754-4331-8410-08eb14281f4d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.fields.Email[0] }}",
+        "subject": "Loan Status Update ",
+        "emailType": "text",
+        "message": "=Dear {{ $json.fields['Full Name'][0] }},\n\nWe have received your documents.\n\nYour loan is \"Under Review\".\nWe will get back to you within 2 hours.\n\nBest,\nFox Finance Team",
+        "options": {
+          "appendAttribution": false,
+          "senderName": "Support Team"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        928,
+        96
+      ],
+      "id": "82a3f857-6431-4bb7-923e-44a43d003195",
+      "name": "NotifyClientUnderReview",
+      "webhookId": "33fa1c00-e754-4331-8410-08eb14281f4d",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "W2pcNRfZbkgmWX8t",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## All Documents submitted\n\nThis flow kicks in when user submitted all required documents: it updates database and notidies user and admin \n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -256,
+        -208
+      ],
+      "typeVersion": 1,
+      "id": "f651b059-852d-4a8d-acbc-644e836b44c1",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "Document Submitted Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "annettepartida.app.n8n.cloud",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+            "content-length": "1090",
+            "accept": "*/*",
+            "accept-encoding": "gzip, br",
+            "accept-language": "en-US,en;q=0.9",
+            "cdn-loop": "cloudflare; loops=1; subreqs=1",
+            "cf-connecting-ip": "2a00:ee2:1200:8400:24ac:c8c8:3155:2d56",
+            "cf-ew-via": "15",
+            "cf-ipcountry": "SI",
+            "cf-ray": "9ef47314ff603830-FRA",
+            "cf-visitor": "{\"scheme\":\"https\"}",
+            "cf-worker": "n8n.cloud",
+            "content-type": "application/json",
+            "origin": "https://fox-finance-apply.lovable.app",
+            "priority": "u=1, i",
+            "referer": "https://fox-finance-apply.lovable.app/",
+            "sec-ch-ua": "\"Google Chrome\";v=\"147\", \"Not.A/Brand\";v=\"8\", \"Chromium\";v=\"147\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "cross-site",
+            "x-forwarded-for": "2a00:ee2:1200:8400:24ac:c8c8:3155:2d56, 162.158.95.113",
+            "x-forwarded-host": "annettepartida.app.n8n.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "traefik-prod-users-gwc-81-8cbc5f4fb-w7dbz",
+            "x-is-trusted": "yes",
+            "x-real-ip": "2a00:ee2:1200:8400:24ac:c8c8:3155:2d56"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "message": "success",
+            "clientId": [
+              "recZ1MOtNdr8dA2uT"
+            ],
+            "uploadLinkId": "recI2cdscI2nBfFPb",
+            "urls": [
+              {
+                "documentId": "recoMk44i5L5z0XyH",
+                "downloadUrl": "https://fox-finance-dev-fox-finance-uploads.s3.amazonaws.com/uploads/recZ1MOtNdr8dA2uT/recI2cdscI2nBfFPb/98f7d220-346b-43ad-8aa1-9ed714fb249f-I-9Presentation.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARTCUISOE62CEUPG3%2F20260420%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260420T132057Z&X-Amz-Expires=172800&X-Amz-SignedHeaders=host&X-Amz-Signature=4fc82ca1cfbed7978d5ad3dffbda9e5e115416154592b8dad543eb3606de81ac"
+              },
+              {
+                "documentId": "recwB7DniDI1WhMDT",
+                "downloadUrl": "https://fox-finance-dev-fox-finance-uploads.s3.amazonaws.com/uploads/recZ1MOtNdr8dA2uT/recI2cdscI2nBfFPb/b1a164d5-1c12-4681-8850-2619344cd73d-Screenshot_2025-04-23_at_9.04.02%E2%80%AFAM.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARTCUISOE62CEUPG3%2F20260420%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260420T132058Z&X-Amz-Expires=172800&X-Amz-SignedHeaders=host&X-Amz-Signature=0fce748306c348859af76d5ae82c1e688b8c934c9e5af0e8e0c44c048d0f6ec4"
+              }
+            ]
+          },
+          "webhookUrl": "https://annettepartida.app.n8n.cloud/webhook/submission-complete",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Document Submitted Webhook": {
+      "main": [
+        [
+          {
+            "node": "Document Request Status Changed to Uploaded1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Document Request Status Changed to Uploaded": {
+      "main": [
+        []
+      ]
+    },
+    "Document Request Status Changed to Uploaded1": {
+      "main": [
+        [
+          {
+            "node": "Document Request Status Changed to Uploaded2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "NotifyAdmin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Document Request Status Changed to Uploaded2": {
+      "main": [
+        [
+          {
+            "node": "NotifyClientUnderReview",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Document Request Status Changed to Uploaded",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "NotifyClientUnderReview": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "e7c216c1-84dc-47cd-9152-ad46de3bcb61",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8d6a5242629bd7a1e65aa30be331de3e973dfc623bdd62b21b44a73c28540a0b"
+  },
+  "id": "qF9r0vjGhxIazKbj",
+  "tags": []
+}
